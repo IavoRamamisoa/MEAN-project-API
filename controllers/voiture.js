@@ -13,7 +13,8 @@ export const getVoiture = async (req, res) => {
 
 export const createVoiture = async (req,res) => {
     const voiture = req.body;
-    const newPost = new Voiture (voiture);
+    const newPost = new Voiture ({...voiture,idProprietaire:req.userId});
+    console.log(req.userId);
 
     try {
         await newPost.save();

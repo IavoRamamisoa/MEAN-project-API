@@ -4,8 +4,8 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import voitureRoutes from './routes/voiture.js';
 import userRoutes from './routes/users.js';
-
-
+import reparationRoutes from './routes/reparation.js';
+import coutRoutes from './routes/cout.js';
 const app = express();
 
 
@@ -15,6 +15,8 @@ app.use(cors());
 
 app.use('/voiture', voitureRoutes);
 app.use('/user',userRoutes);
+app.use('/reparation',reparationRoutes);
+app.use('/cout',coutRoutes);
 
 const CONNECTION_URL = 'mongodb+srv://Razady:razady123@cluster0.kd5c2e9.mongodb.net/?retryWrites=true&w=majority';
 const PORT = process.env.PORT || 4000; 
