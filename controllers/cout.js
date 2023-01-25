@@ -23,3 +23,20 @@ export const createCout = async (req,res) => {
         res.status(409).json({ message: error.message});
     }
 }
+
+export const insertAvance = async (req,res) => {
+    const { id:_id} = req.params;
+    const { date,montant } = req.body;
+    const data = {
+        date:date,
+        montant:montant,
+        validation:false
+    };
+    console.log(date,montant);
+    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Pas de voiture avec cette id ');
+    const reparation = await Cout.findById(_id);
+    reparation.avance.push(data);
+    
+    const updatedPost = await Cout.findByIdAndUpdate(_id, reparation ,{new : true});
+    res.json(updatedPost);
+ }

@@ -3,15 +3,20 @@ import mongoose from "mongoose";
 const coutSchema = mongoose.Schema ({
     idReparation:String,
     dateReception:Date,
-    aFaire: [{
-        description: String,
-        avancement: String,
-        statut:Boolean,
-        dateDebut:Date,
-        dateFin:Date,
-        dureeExact:Number
+    piece: [{
+        nom: String,
+        cout: Number,
     }],
-    bonSortie: Boolean
+    coutTotalPiece: Number,
+    coutReparation:Number,
+    coutTotale:Number,
+    avance:[{
+        date:Date,
+        montant:Number,
+        validation:Boolean,
+    }],
+    coutTotalePaye:Number,
+    resteAPayer:Number
 });
 
 

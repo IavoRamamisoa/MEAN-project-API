@@ -5,12 +5,14 @@ const reparationSchema = mongoose.Schema ({
     dateReception:Date,
     aFaire: [{
         description: String,
+        estimation:Number,
         avancement: String,
         statut:Boolean,
         dateDebut:Date,
         dateFin:Date,
         dureeExact:Number
     }],
+    dureeTotal:Number,
     bonSortie: Boolean
 });
 

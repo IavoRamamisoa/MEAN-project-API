@@ -13,6 +13,16 @@ export const getReparation = async (req, res) => {
     }
 }
 
+export const getReparationAValider = async (req, res) => {
+    try {
+        var query = { $or: [{ "bonSortie": false},{ "bonSortie": null}]};
+        const reparation = await Reparation.find(query);
+        res.status(200).json(reparation);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
+
 export const getReparationById = async (req, res) => {
     const { id } = req.params;
     try {
@@ -51,7 +61,7 @@ export const updateReparation = async (req,res) => {
     if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No post with this id');
 
     const reparation = await Reparation.findById(id);
-    if(reparation.bonSortie===true) return res.status(400).send(' Le bon de sortie de la voiture a été déja validée')
+    if(reparation.bonSortie===true) return res.status(400).send(' Le bon de sortie de la voiture a  déja été validée')
         
     reparation.bonSortie = true ;
     
