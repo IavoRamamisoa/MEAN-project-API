@@ -11,6 +11,16 @@ export const getCout = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 }
+export const getCoutById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const cout = await Cout.findById(id);
+
+        res.status(200).json(cout);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
 
 export const createCout = async (req,res) => {
     const cout = req.body;
@@ -33,10 +43,23 @@ export const insertAvance = async (req,res) => {
         validation:false
     };
     console.log(date,montant);
-    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Pas de voiture avec cette id ');
+    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('Pas de reparation avec cette id ');
     const reparation = await Cout.findById(_id);
     reparation.avance.push(data);
     
     const updatedPost = await Cout.findByIdAndUpdate(_id, reparation ,{new : true});
     res.json(updatedPost);
+ }
+ export const validationAvance = async (req,res) => {
+
+    const { id:_id} = req.params;
+    const updatedPost = await Cout.updateOne({
+        "avance._id" : _id
+ },{
+    "$set" : {
+        "avance.$.validation" : true
+    }
+ });
+ res.json(updatedPost);
+   
  }
