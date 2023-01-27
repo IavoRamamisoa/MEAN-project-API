@@ -11,6 +11,16 @@ export const getVoiture = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 }
+export const getVoitureById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const voiture = await Voiture.findById(id);
+
+        res.status(200).json(voiture);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
 
 export const createVoiture = async (req,res) => {
     const voiture = req.body;
@@ -35,3 +45,13 @@ export const updateVoiture = async (req,res) => {
     const updatedPost = await Voiture.findByIdAndUpdate(_id, voiture ,{new : true});
     res.json(updatedPost);
  }
+
+ export const getCount = async (req, res) => {
+
+    try {
+        const cout = await Voiture.count();
+        res.status(200).json(cout);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}

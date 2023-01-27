@@ -5,7 +5,7 @@ import auth from '../middleware/auth.js';
 
 const router = express.Router();
 
-//localhost:4000/cout
+//localhost:4000/coutxx
 
 
 router.get('/',getCout);    //getAllCout

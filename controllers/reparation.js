@@ -33,6 +33,15 @@ export const getReparationById = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 }
+export const getCount = async (req, res) => {
+
+    try {
+        const reparation = await Reparation.count();
+        res.status(200).json(reparation);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
 
 export const createReparation = async (req,res) => {
     const reparation = req.body;
