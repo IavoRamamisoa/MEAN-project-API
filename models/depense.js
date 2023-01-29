@@ -4,8 +4,9 @@ const depenseSchema = mongoose.Schema ({
     salaire:Number,
     loyer: Number,
     achatPiece:Number,
-    AutreDepense:Number
-    
+    autreDepense:Number,
+    totale:Number,
+    date:Date
 });
 
 
