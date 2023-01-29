@@ -1,4 +1,5 @@
 import Cout from "../models/cout.js";
+import Reparation from "../models/reparation.js";
 import mongoose from "mongoose";
 
 export const getCout = async (req, res) => {
@@ -63,22 +64,27 @@ const coutTotalPiece = async (idReparation) => {
     try {
         const query = " sum(piece.cout)";
         //{ month : { $month : "dateReception" } ,year: { $year: "$dateReception" }}
-        const cout = await Cout.aggregate([{
+        const reparation = await Reparation.aggregate([{
             $unwind: {
-                path: "$avance",
+                path: "$aFaire",
                 preserveNullAndEmptyArrays: true
             }
-        },{$match: { "idReparation": "63d3de0f274655fd76e8308c","avance.validation": true  } },
+        },{$match: { "aFaire.dureeExact": { 
+
+                        $exists: true, 
+                        $ne: null,
+                        $ne:0 }} },
+
             {
             $group: {
-                _id: null,
-                coutTotalPaye: { $sum :"$avance.montant"} ,
+                _id: "",
+                coutTotalPaye: { $sum :"$aFaire.dureeExact"} ,
                 count:{ $sum: 1 }
             }
             }
         ]);
 
-        res.status(200).json(cout);
+        res.status(200).json(reparation);
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
@@ -100,8 +106,6 @@ const TotalAvanceValide = async (idReparation) => {
             }
             }
         ]);
-        console.log("mandalo avance");
-        console.log(cout);
         return cout
     } catch (error) {
         console.log(error);
