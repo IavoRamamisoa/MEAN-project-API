@@ -8,9 +8,9 @@ const router = express.Router();
 //localhost:4000/stat
 
 
-router.get('/jour',getCoutTotalPayeParJour);
-router.get('/mois',getCoutTotalPayeParMois);
-router.get('/reparation',getReparationMoyenne);
-router.get('/benefice',getBenefice);
+router.get('/jour',auth,getCoutTotalPayeParJour);
+router.get('/mois',auth,getCoutTotalPayeParMois);
+router.get('/reparation',auth,getReparationMoyenne);
+router.get('/benefice',auth,getBenefice);
 
 export default router;
